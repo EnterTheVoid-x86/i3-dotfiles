@@ -1,8 +1,10 @@
 # mod
 set $mod Mod4
 
+exec dunst
+
 # font
-font pango: System San Francisco Display 10
+font pango:System San Francisco Display 10
 
 # thin borders
 hide_edge_borders both
@@ -50,16 +52,16 @@ bindsym $mod+space focus mode_toggle
 # focus the parent container
 bindsym $mod+a focus parent
 
-set $workspace1 "1 "
-set $workspace2 "2 "
-set $workspace3 "3 " 
-set $workspace4 "4 "
-set $workspace5 "5 "
-set $workspace6 "6 "
-set $workspace7 "7 "
-set $workspace8 "8 "
-set $workspace9 "9 "
-set $workspace10 "10 "
+set $workspace1 "1"
+set $workspace2 "2"
+set $workspace3 "3" 
+set $workspace4 "4"
+set $workspace5 "5"
+set $workspace6 "6"
+set $workspace7 "7"
+set $workspace8 "8"
+set $workspace9 "9"
+set $workspace10 "10"
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $workspace1
@@ -92,8 +94,7 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
 # exit i3
-bindsym $mod+Shift+e exec /home/booker/.i3/scripts/exit_menu
-
+bindsym $mod+Shift+e exec pkill i3
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -129,16 +130,7 @@ client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color      
 
 # bar
 bar {
-  	position top
-  	status_command i3status-rs /home/nonsysd/.config/i3status-rs/config.toml 
-	colors {
-		background $bg-color
-	    	separator #757575
-		#                  border             background         text
-		focused_workspace  $bg-color          $bg-color          $text-color
-		inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
-		urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
-	}
+	i3bar_command ./.config/polybar/launch.sh --material
 }
 
 
@@ -173,11 +165,11 @@ bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioPause exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
-bindsym $mod+Shift+f exec firefox
-bindsym $mod+Return exec cool-retro-term
+bindsym $mod+Shift+f exec chromium
+bindsym $mod+Return exec alacritty
 bindsym $mod+C kill
-bindsym Print exec screenshot
-bindsym $mod+d exec rofi -show drun -font "System San Francisco Display 12"
+bindsym $mod+p exec screenshot
+bindsym $mod+d exec i3-dmenu-desktop
 
 # startup
 exec_always --no-startup-id start-pulseaudio-x11
@@ -188,5 +180,6 @@ exec_always xmodmap -e "clear lock" #disable caps lock switch
 exec_always xmodmap -e "keysym Caps_Lock = Escape" #set caps_lock as escape
 
 exec --no-startup-id compton -f
-exec --no-startup-id feh --bg-scale /home/nonsysd/Downloads/WALLPAPER.jpg
+exec --no-startup-id feh --bg-scale .config/i3/WALLPAPER.jpg
+
 
